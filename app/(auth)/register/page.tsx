@@ -1,7 +1,9 @@
+import { RegisterForm } from "@/features/auth";
+
 export default function RegisterPage() {
-  return (
-    <div className="container mx-auto py-20">
-      <h1 className="text-4xl font-bold">Register Your Business</h1>
-    </div>
-  );
+    return (
+        <div className="flex min-h-screen items-center justify-center p-6">
+            <RegisterForm />
+        </div>
+    );
 }

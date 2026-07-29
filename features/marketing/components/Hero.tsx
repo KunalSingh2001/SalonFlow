@@ -15,7 +15,7 @@ export default function Hero() {
                 </p>
 
                 <div className="mt-8 flex gap-4">
-                    <Button asChild>
+                    <Button>
                         <Link href="/register">Start Free Trial</Link>
                     </Button>
 
