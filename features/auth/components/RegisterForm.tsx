@@ -13,6 +13,7 @@ import * as React from "react";
 import { useState } from "react";
 import { registerSchema } from "@/schemas/auth/auth.schema";
 import { getZodFieldErrors } from "@/lib/utils/zod";
+import {registerUser} from "@/services/auth.service";
 
 export default function RegisterForm() {
     const [formData, setFormData] = useState({
@@ -36,8 +37,8 @@ export default function RegisterForm() {
         }
 
         setErrors({});
-
-        console.log(formData);
+        console.log("formData", formData);
+        registerUser(formData);
 
     }
 
