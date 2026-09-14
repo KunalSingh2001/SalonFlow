@@ -13,7 +13,7 @@ import * as React from "react";
 import { useState } from "react";
 import { registerSchema } from "@/schemas/auth/auth.schema";
 import { getZodFieldErrors } from "@/lib/utils/zod";
-import {registerUser} from "@/services/auth.service";
+import { registerUser } from "@/services/auth.service";
 
 export default function RegisterForm() {
     const [formData, setFormData] = useState({
@@ -25,9 +25,10 @@ export default function RegisterForm() {
     });
 
     const [errors, setErrors] = useState<Record<string, string>>({});
+    const [isLoading, setIsLoading] = useState(false);
 
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const result = registerSchema.safeParse(formData);
 
@@ -37,13 +38,29 @@ export default function RegisterForm() {
         }
 
         setErrors({});
-        console.log("formData", formData);
-        registerUser(formData);
+        setServerError(null); // 👈 1. Clear previous server error
+        setIsLoading(true);
+        try {
+            const data = await registerUser(formData);
+            console.log("Registration successful:", data);
+
+        } catch (err: any) {
+            const message = err.message || "Something went wrong";
+            if (message.toLowerCase().includes("user") || message.toLowerCase().includes("email")) {
+                setErrors({ email: message });
+            } else {
+                setErrors({ general: message });
+            }
+        } finally {
+            setIsLoading(false);
+        }
 
     }
 
 
     return (
+
+
         <Card className="w-full max-w-md">
             <CardHeader>
                 <CardTitle>Register</CardTitle>
@@ -52,7 +69,7 @@ export default function RegisterForm() {
                 </CardDescription>
             </CardHeader>
 
-            <CardContent>
+            <CardContent className="max-h-[450px] overflow-y-auto pr-2">
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <div className="grid gap-2">
                         <Label htmlFor="busniess_name">Busniess Name</Label>
