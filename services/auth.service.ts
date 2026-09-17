@@ -8,8 +8,6 @@ export const registerUser = async (data: RegisterBody) => {
         },
         body: JSON.stringify(data),
     });
-
     const result = await response.json();
-
     return result;
 };

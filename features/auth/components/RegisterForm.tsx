@@ -38,7 +38,7 @@ export default function RegisterForm() {
         }
 
         setErrors({});
-        setServerError(null); // 👈 1. Clear previous server error
+        // setServerError(null); // 👈 1. Clear previous server error
         setIsLoading(true);
         try {
             const data = await registerUser(formData);
