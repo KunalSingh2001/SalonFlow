@@ -46,6 +46,7 @@ export default function RegisterForm() {
 
         } catch (err: any) {
             const message = err.message || "Something went wrong";
+            console.log("error", err);
             if (message.toLowerCase().includes("user") || message.toLowerCase().includes("email")) {
                 setErrors({ email: message });
             } else {

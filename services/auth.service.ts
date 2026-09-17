@@ -9,5 +9,8 @@ export const registerUser = async (data: RegisterBody) => {
         body: JSON.stringify(data),
     });
     const result = await response.json();
+    if (!response.ok) {
+        throw new Error(result.message || "Registeration failed");
+    }
     return result;
 };
