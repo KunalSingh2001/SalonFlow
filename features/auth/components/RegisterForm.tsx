@@ -14,8 +14,10 @@ import { useState } from "react";
 import { registerSchema } from "@/schemas/auth/auth.schema";
 import { getZodFieldErrors } from "@/lib/utils/zod";
 import { registerUser } from "@/services/auth.service";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
+    const router = useRouter();
     const [formData, setFormData] = useState({
         busniess_name: "",
         owner_name: "",
@@ -38,11 +40,10 @@ export default function RegisterForm() {
         }
 
         setErrors({});
-        // setServerError(null); // 👈 1. Clear previous server error
         setIsLoading(true);
         try {
-            const data = await registerUser(formData);
-            console.log("Registration successful:", data);
+            await registerUser(formData);
+            router.push("/dashboard");
 
         } catch (err: any) {
             const message = err.message || "Something went wrong";
@@ -60,8 +61,6 @@ export default function RegisterForm() {
 
 
     return (
-
-
         <Card className="w-full max-w-md">
             <CardHeader>
                 <CardTitle>Register</CardTitle>
