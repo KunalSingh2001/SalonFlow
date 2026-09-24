@@ -1,8 +1,11 @@
+import { LoginForm } from "@/features/auth";
+
 export default function LoginPage() {
-    console.log("Login page rendered");
     return (
         <main>
-            <h1>Login</h1>
+            <div className="flex min-h-screen items-center justify-center p-6">
+                <LoginForm />
+            </div>
         </main>
     );
 }
